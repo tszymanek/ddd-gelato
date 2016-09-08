@@ -7,3 +7,12 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    create_craftsman_service:
+        class: Gelato\Production\Application\Service\Craftsman\CreateCraftsmanService
+        arguments: ['@craftsman_repository_doctrine', '@craftsman_dto']
+    craftsman_repository_doctrine:
+        class: Gelato\Production\Infrastructure\Domain\Model\Craftsman\DoctrineCraftsmanRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: ['Gelato\Production\Domain\Model\Craftsman\Craftsman']
+    craftsman_dto:
+        class: Gelato\Production\Application\DataTransformer\Craftsman\CraftsmanDTODataTransformer

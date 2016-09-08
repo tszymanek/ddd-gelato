@@ -1,0 +1,13 @@
+Gelato\Production\Domain\Model\Craftsman\Craftsman:
+  type: entity
+  id:
+    craftsmanId:
+      column: id
+      type: CraftsmanId
+  table: gelato_craftsman
+  repositoryClass: Gelato\Production\Infrastructure\Domain\Model\Craftsman\DoctrineCraftsmanRepository
+  fields:
+    firstName:
+      type: string
+    lastName:
+      type: string

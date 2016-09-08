@@ -1,0 +1,8 @@
+Gelato\Production\Domain\Model\Gelato\Flavor:
+  type: entity
+  table: gelato_flavor
+  repositoryClass: Gelato\Production\Infrastructure\Domain\Model\Gelato\DoctrineFlavorRepository
+  id:
+    name:
+      type: string
+      strategy: NONE

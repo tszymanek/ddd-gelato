@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {#{{ dump() }}#}
+    <div class="container">
+        <div class="row">
+            <h1>Craftsman show</h1>
+        </div>
+        <div class="row">
+            {{ craftsman.firstName }}
+            {{ craftsman.lastName }}
+            <a href="{{ path('add_flavor') }}">Add flavor</a>
+        </div>
+    </div>
+{% endblock %}
