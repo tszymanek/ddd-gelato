@@ -51,6 +51,12 @@ doctrine:
         charset:  UTF8
         types:
             CraftsmanId: Gelato\Production\Infrastructure\Domain\Model\Craftsman\DoctrineCraftsmanId
+
+            FreezerId: Gelato\Sale\Infrastructure\Domain\Model\Freezer\DoctrineFreezerId
+            FreezerType: Gelato\Sale\Infrastructure\Domain\Model\Freezer\DoctrineFreezerType
+
+            GelatoId: Gelato\Production\Infrastructure\Domain\Model\Gelato\DoctrineGelatoId
+            Flavor: Gelato\Production\Infrastructure\Domain\Model\Gelato\DoctrineFlavor
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
@@ -67,6 +73,12 @@ doctrine:
                 type:       yml
                 dir:        '%kernel.root_dir%/../src/Gelato/Production/Infrastructure/Persistence/Doctrine/Mapping'
                 prefix:     Gelato\Production\Domain\Model
+                is_bundle:  false
+                alias:      Gelato
+            Sale:
+                type:       yml
+                dir:        '%kernel.root_dir%/../src/Gelato/Sale/Infrastructure/Persistence/Doctrine/Mapping'
+                prefix:     Gelato\Sale\Domain\Model
                 is_bundle:  false
                 alias:      Gelato
 

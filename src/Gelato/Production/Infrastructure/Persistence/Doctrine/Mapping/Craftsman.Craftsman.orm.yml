@@ -4,7 +4,7 @@ Gelato\Production\Domain\Model\Craftsman\Craftsman:
     craftsmanId:
       column: id
       type: CraftsmanId
-  table: gelato_craftsman
+  table: craftsman
   repositoryClass: Gelato\Production\Infrastructure\Domain\Model\Craftsman\DoctrineCraftsmanRepository
   fields:
     firstName:

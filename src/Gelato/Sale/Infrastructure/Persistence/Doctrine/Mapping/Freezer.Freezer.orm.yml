@@ -1,0 +1,16 @@
+Gelato\Sale\Domain\Model\Freezer\Freezer:
+  type: entity
+  id:
+    freezerId:
+      column: id
+      type: FreezerId
+  table: freezer
+  repositoryClass: Gelato\Sale\Infrastructure\Domain\Model\Freezer\DoctrineFreezerRepository
+  fields:
+    capacity:
+      type: integer
+      nullable: true
+    type:
+      type: FreezerType
+    parlor:
+      type: string

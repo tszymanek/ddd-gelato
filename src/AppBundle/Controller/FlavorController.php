@@ -2,10 +2,9 @@
 
 namespace AppBundle\Controller;
 
-use Gelato\Production\Domain\Model\Craftsman\CraftsmanId;
+use AppBundle\Form\FlavorType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -24,26 +23,21 @@ class FlavorController extends Controller
     {
         $form = $this->createForm(FlavorType::class);
 
-        if($form->isSubmitted() && $form->isValid()) {
-            $data=$form->getData();
-            //identity check
-            $craftsman = $this
-                ->get('craftsman_repository_doctrine')
-                ->find(new CraftsmanId($request->request->get('id')));
+        $form->handleRequest($request);
 
-            $flavor = $craftsman->provideFlavor($data['name']);
-            $flavorRepository = $this->get('flavor_repository_doctrine');
-            $dbflavor = $this->get('flavor_repository_doctrine')->ofName($flavor->name());
-            if ($dbflavor) {
-                throw new \Exception();
-            }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
 
-            $flavorRepository->add($flavor);
+            $createFlavorService = $this->get('create_flavor_service');
 
-        return new Response();
+            $response = $createFlavorService->execute($data);
         }
 
-        return new Response();
+        return $this->render(
+            '@Gelato/Production/UI/Twig/Gelato/newFlavor.html.twig', [
+                'form' => $form->createView()
+            ]
+        );
     }
 
 }

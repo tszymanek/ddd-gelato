@@ -3,30 +3,71 @@
 namespace Gelato\Production\Domain\Model\Gelato;
 
 use Gelato\Common\Domain\IdentifiableDomainObject;
+use Gelato\Production\Domain\Model\Craftsman\CraftsmanId;
 
-class Gelato extends IdentifiableDomainObject {
+class Gelato extends IdentifiableDomainObject
+{
+    /**
+     * @var GelatoId
+     */
     private $gelatoId;
+
+    /**
+     * @var CraftsmanId
+     */
     private $craftsmanId;
-    private $gelatoFlavor;
+
+    /**
+     * @var Flavor
+     */
+    private $flavor;
+
+    /**
+     * @var \DateTimeImmutable
+     */
     private $createdAt;
 
+    /**
+     * @param GelatoId $anId
+     * @param Flavor $aFlavor
+     * @param CraftsmanId $aCraftsmanId
+     */
     public function __construct(
         GelatoId $anId,
-        Flavor $aGelatoFlavor,
+        Flavor $aFlavor,
         CraftsmanId $aCraftsmanId
-    )
-    {
+    ) {
         $this->gelatoId = $anId;
-        $this->gelatoFlavor = $aGelatoFlavor;
+        $this->flavor = $aFlavor;
+        $this->craftsmanId = $aCraftsmanId;
         $this->createdAt = new \DateTimeImmutable();
     }
 
+    /**
+     * @return GelatoId
+     */
     public function gelatoId()
     {
         if (null === $this->gelatoId) {
-            $this->crafstmanId = new GelatoId($this->id());
+            $this->gelatoId = new GelatoId($this->id());
         }
 
         return $this->gelatoId;
+    }
+
+    /**
+     * @return string
+     */
+    public function flavor()
+    {
+        return $this->flavor->name();
+    }
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function createdAt()
+    {
+        return $this->createdAt;
     }
 }

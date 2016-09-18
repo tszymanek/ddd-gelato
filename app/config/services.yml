@@ -16,3 +16,42 @@ services:
         arguments: ['Gelato\Production\Domain\Model\Craftsman\Craftsman']
     craftsman_dto:
         class: Gelato\Production\Application\DataTransformer\Craftsman\CraftsmanDTODataTransformer
+
+    produce_gelato_service:
+        class: Gelato\Production\Application\Service\Gelato\ProduceGelatoService
+        arguments: ['@craftsman_repository_doctrine', '@gelato_repository_doctrine', '@gelato_dto']
+    gelato_repository_doctrine:
+        class: Gelato\Production\Infrastructure\Domain\Model\Gelato\DoctrineGelatoRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: ['Gelato\Production\Domain\Model\Gelato\Gelato']
+    gelato_dto:
+            class: Gelato\Production\Application\DataTransformer\Gelato\GelatoDTODataTransformer
+
+    view_gelatos_service:
+        class: Gelato\Production\Application\Service\Gelato\ViewGelatosService
+        arguments: ['@gelato_repository_doctrine']
+
+    create_flavor_service:
+        class: Gelato\Production\Application\Service\Gelato\CreateFlavorService
+        arguments: ['@flavor_repository_doctrine', '@flavor_dto']
+    flavor_repository_doctrine:
+        class: Gelato\Production\Infrastructure\Domain\Model\Gelato\DoctrineFlavorRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: ['Gelato\Production\Domain\Model\Gelato\Flavor']
+    flavor_dto:
+        class: Gelato\Production\Application\DataTransformer\Gelato\FlavorDTODataTransformer
+
+    create_freezer_service:
+        class: Gelato\Sale\Application\Service\Freezer\CreateFreezerService
+        arguments: ['@freezer_repository_doctrine', '@freezer_dto']
+    freezer_repository_doctrine:
+        class: Gelato\Sale\Infrastructure\Domain\Model\Freezer\DoctrineFreezerRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: ['Gelato\Sale\Domain\Model\Freezer\Freezer']
+    freezer_dto:
+        class: Gelato\Sale\Application\DataTransformer\Freezer\FreezerDTODataTransformer
+
+    freezer_type_repository_doctrine:
+        class: Gelato\Sale\Infrastructure\Domain\Model\Freezer\DoctrineFreezerTypeRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: ['Gelato\Sale\Domain\Model\Freezer\FreezerType']

@@ -1,6 +1,6 @@
 <?php
 
-namespace Gelato\Production\Infrastructure\Domain\Model\Craftsman;
+namespace Gelato\Production\Infrastructure\Domain\Model\Gelato;
 
 use Gelato\Production\Domain\Model\Gelato\Flavor;
 use Gelato\Production\Domain\Model\Gelato\FlavorRepository;
@@ -9,6 +9,11 @@ use Doctrine\ORM\EntityRepository;
 
 class DoctrineFlavorRepository extends EntityRepository implements FlavorRepository
 {
+    public function all()
+    {
+        return $this->findAll();
+    }
+
     public function ofName($aName)
     {
         return $this->find($aName);

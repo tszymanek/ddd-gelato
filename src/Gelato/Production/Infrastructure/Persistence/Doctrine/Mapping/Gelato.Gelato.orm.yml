@@ -1,0 +1,16 @@
+Gelato\Production\Domain\Model\Gelato\Gelato:
+  type: entity
+  id:
+    gelatoId:
+      column: id
+      type: GelatoId
+  table: gelato
+  repositoryClass: Gelato\Production\Infrastructure\Domain\Model\Gelato\DoctrineGelatoRepository
+  fields:
+    flavor:
+      type: Flavor
+    createdAt:
+      type: datetime
+    craftsmanId:
+      type: CraftsmanId
+      column: craftsman_id

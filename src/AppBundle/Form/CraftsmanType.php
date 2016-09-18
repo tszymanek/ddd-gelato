@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 use Gelato\Production\Application\Service\Craftsman\CreateCraftsmanRequest;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,8 +14,8 @@ class CraftsmanType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName')
-            ->add('lastName')
+            ->add('firstName', TextType::class)
+            ->add('lastName', TextType::class)
         ;
     }
 

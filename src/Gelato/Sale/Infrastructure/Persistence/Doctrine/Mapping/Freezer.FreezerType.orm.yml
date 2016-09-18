@@ -1,0 +1,8 @@
+Gelato\Sale\Domain\Model\Freezer\FreezerType:
+  type: entity
+  table: freezer_type
+  repositoryClass: Gelato\Sale\Infrastructure\Domain\Model\Freezer\DoctrineFreezerTypeRepository
+  id:
+    name:
+      type: string
+      strategy: NONE

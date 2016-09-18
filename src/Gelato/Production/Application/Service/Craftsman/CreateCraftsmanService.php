@@ -15,8 +15,7 @@ class CreateCraftsmanService
     public function __construct(
         CraftsmanRepository $craftsmanRepository,
         CraftsmanDataTransformer $craftsmanDataTransformer
-    )
-    {
+    ) {
         $this->craftsmanRepository = $craftsmanRepository;
         $this->craftsmanDataTransformer = $craftsmanDataTransformer;
     }

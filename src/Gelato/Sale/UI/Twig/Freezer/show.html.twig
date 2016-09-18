@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {#{{ dump() }}#}
+    <div class="container">
+        <div class="row">
+            <h1>Freezer show</h1>
+        </div>
+        <div class="row">
+            {{ freezer.capacity }}
+            {{ freezer.type }}
+            {{ freezer.parlor }}
+        </div>
+    </div>
+{% endblock %}

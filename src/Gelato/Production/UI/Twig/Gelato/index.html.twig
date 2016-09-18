@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <h1>Gelato list</h1>
+        </div>
+        <div class="row">
+            <table class="records_list">
+                <thead>
+                <tr>
+                    <th>GelatoId</th>
+                    <th>Flavor</th>
+                    <th>createdAt</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for gelato in gelatos %}
+                    <tr>
+                        <td>{{ gelato.gelatoId }}</td>
+                        <td>{{ gelato.flavor }}</td>
+                        <td>{{ gelato.createdAt|date("Y-m-d H:i") }}</td>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

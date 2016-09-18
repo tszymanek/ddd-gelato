@@ -1,6 +1,6 @@
 Gelato\Production\Domain\Model\Gelato\Flavor:
   type: entity
-  table: gelato_flavor
+  table: flavor
   repositoryClass: Gelato\Production\Infrastructure\Domain\Model\Gelato\DoctrineFlavorRepository
   id:
     name:

@@ -3,15 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Form\CraftsmanType;
-use Gelato\Production\Application\DataTransformer\Craftsman\CraftsmanDTODataTransformer;
-use Gelato\Production\Application\Service\Craftsman\CreateCraftsmanRequest;
-use Gelato\Production\Application\Service\Craftsman\CreateCraftsmanService;
-use Gelato\Production\Domain\Model\Craftsman\CraftsmanDoesNotExistsException;
+use Gelato\Production\Application\Service\Gelato\ProduceGelatoRequest;
+use Gelato\Production\Domain\Model\Craftsman\CraftsmanDoesNotExistException;
 use Gelato\Production\Domain\Model\Craftsman\CraftsmanId;
-use Gelato\Production\Domain\Model\Gelato\GelatoId;
+use AppBundle\Form\GelatoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,28 +21,15 @@ use Symfony\Component\HttpFoundation\Response;
 class CraftsmanController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
-     */
-    public function indexAction(Request $request)
-    {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
-        ]);
-    }
-
-    /**
      * @Route("/create", name="craftsman_create")
+     *
      * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function createCraftsmanAction(Request $request)
     {
         $form = $this->createForm(CraftsmanType::class);
-//        $createCraftsmanRequest = new CreateCraftsmanRequest(
-//            $request->get('firstName'),
-//            $request->get('lastName')
-//        );
-//
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -67,7 +51,9 @@ class CraftsmanController extends Controller
 
     /**
      * @Route("/{id}", name="craftsman_show")
+     *
      * @param $id
+     * @return Response
      */
     public function showCraftsmanAction($id)
     {
@@ -75,12 +61,44 @@ class CraftsmanController extends Controller
 
         $craftsman = $craftsmanRepository->ofId(new CraftsmanId($id));
         if (!$craftsman) {
-           throw new CraftsmanDoesNotExistsException();
+            throw new CraftsmanDoesNotExistException();
         }
 
         return $this->render(
             '@Gelato/Production/UI/Twig/Craftsman/show.html.twig', [
                 'craftsman' => $craftsman
+            ]
+        );
+    }
+
+
+    /**
+     * @Route("/{id}/gelato/create", name="gelato_create")
+     *
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
+    public function createGelatoAction(Request $request, $id)
+    {
+        $flavors = $this->get('flavor_repository_doctrine')->all();
+        $form = $this->createForm(GelatoType::class, null, ['flavors' => $flavors]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $produceGelatoService = $this->get('produce_gelato_service');
+
+            $response = $produceGelatoService->execute(
+                new ProduceGelatoRequest($data->flavor(), $id)
+            );
+        }
+
+        return $this->render(
+            '@Gelato/Production/UI/Twig/Gelato/newGelato.html.twig', [
+                'form' => $form->createView()
             ]
         );
     }
